@@ -7,12 +7,14 @@ include "./_layouts/header.php";
 <section>
     <div class="container">
         <div class="wrapper my-5">
-            <button class="btn">
-                <a href="./login.php">Login</a>
-            </button>
-            <button class="btn">
-                <a href="./profile.php">Profile</a>
-            </button>
+            <a href="./login.php">
+                <button class="btn">
+                    Login
+                </button>
+            </a>
+            <a href="./profile.php">
+                <button class="btn">Profile</button>
+            </a>
         </div>
     </div>
 </section>

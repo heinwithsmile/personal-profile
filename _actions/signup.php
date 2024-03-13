@@ -5,20 +5,28 @@ require_once "../_config/db.php";
 session_start();
 
 $email = $password = $confirm_password = '';
-$email_error = $password_error = $confirm_password_error = '';
+$email2_error = $password_error = $confirm_password_error = '';
 
-if (isset($_POST['submit'])){
-    if($_SERVER['REQUEST_METHOD'] === 'POST'){
-        if(empty($_POST['email'])){
+if (isset($_POST['submit'])) {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (empty($_POST['email2'])) {
             $email_error = 'Email is required';
-            $_SESSION['email_error'] = $email_error;
-        }else{
-            $email = htmlspecialchars($_POST['email']);
+            $_SESSION['email2_error'] = $email_error;
+        } else {
+            $email = htmlspecialchars($_POST['email2']);
         }
-        if(empty($_POST['password'])){
+        if (empty($_POST['password2'])) {
             $password_error = 'Password is required';
-            $_SESSION['password_error'] = $password_error;
-        }else{
+            $_SESSION['password2_error'] = $password_error;
+        } else {
+            $password = $_POST['password'];
+            $uppercase = preg_match('@[A-Z]@', $password);
+            $lowercase = preg_match('@[a-z]@', $password);
+            $number    = preg_match('@[0-9]@', $password);
+            $special_chars = preg_match('@[^\w]@', $password);
+            if (!$uppercase || !$lowercase || !$number || !$special_chars){
+                $_SESSION['password2_error'] = 'Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character.';
+            }
             $password = htmlspecialchars($_POST['password']);
         }
         if (empty($_POST['confirm-password'])) {
@@ -32,20 +40,21 @@ if (isset($_POST['submit'])){
             }
         }
 
-        if(empty($email_error) && empty($password_error) && empty($confirm_password_error)){
+        if (empty($email_error) && empty($password_error) && empty($confirm_password_error)) {
             $sql = "INSERT INTO users (email, password) VALUES (:email, :password)";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':email', $email, PDO::PARAM_STR);
-            $stmt->bindParam(':password', $password, PDO::PARAM_STR);
-            
-            try{
+            $stmt->bindParam(':password', md5($password), PDO::PARAM_STR);
+
+            try {
                 $stmt->execute();
-                echo "Data Insert Successfully.";
-            }catch(PDOException $e){
+                if ($conn->lastInsertId())
+                    header("Location: ../profile.php");
+                    exit();
+            } catch (PDOException $e) {
                 die("Error:" . $e->getMessage());
             }
-            
-        }else{
+        } else {
             header("Location: ../login.php");
             exit;
         }

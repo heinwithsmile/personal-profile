@@ -1,7 +1,14 @@
 <?php
-
+// echo "Default session.cookie_lifetime: " . ini_get('session.cookie_lifetime');
+// exit;
+session_start();
 include "./_layouts/header.php";
 include "./_config/db.php";
+
+if(!$_SESSION['loggedin']){
+    header("Location: login.php");
+    exit;
+}
 
 ?>
 <section>
@@ -16,12 +23,12 @@ include "./_config/db.php";
                 <div class="box">
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="name" name="name" id="name" class="form-control">
+                        <input type="name" name="name" id="name" class="form-control" maxlength="100" required>
                         <small class="text-danger">Invalid Name</small>
                     </div>
                     <div class="form-group">
-                        <label for="phone">Password</label>
-                        <input type="text" name="phone" id="phone" class="form-control">
+                        <label for="phone">Phone</label>
+                        <input type="text" name="phone" id="phone" class="form-control" maxlength="100" required>
                         <small class="text-danger">Invalid Phone Number</small>
                     </div>
                     <div class="form-group">
@@ -33,12 +40,12 @@ include "./_config/db.php";
                 <div class="box">
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" name="email" id="email" class="form-control">
+                        <input type="email" name="email" id="email" class="form-control" maxlength="100" required>
                         <small class="text-danger">Invalid Email</small>
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" name="password" id="password" class="form-control">
+                        <input type="password" name="password" id="password" class="form-control" >
                         <small class="text-danger">Invalid Password</small>
                     </div>
                     <div class="form-group">
