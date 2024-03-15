@@ -32,7 +32,7 @@ if(isset($_SESSION['confirm_password_error'])){
         <div class="wrapper flex">
             <div class="card">
                 <h3 class="text-center">Account Login</h3>
-                <form action="./_actions/login.php" method="post">
+                <form action="./_actions/login.php" method="post" class="">
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" name="email" id="email" class="form-control" maxlength="100" required>

@@ -19,7 +19,7 @@ if (isset($_POST['submit'])) {
             $password_error = 'Password is required';
             $_SESSION['password2_error'] = $password_error;
         } else {
-            $password = $_POST['password'];
+            $password = $_POST['password2'];
             $uppercase = preg_match('@[A-Z]@', $password);
             $lowercase = preg_match('@[a-z]@', $password);
             $number    = preg_match('@[0-9]@', $password);
@@ -27,7 +27,7 @@ if (isset($_POST['submit'])) {
             if (!$uppercase || !$lowercase || !$number || !$special_chars){
                 $_SESSION['password2_error'] = 'Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character.';
             }
-            $password = htmlspecialchars($_POST['password']);
+            $password = htmlspecialchars($_POST['password2']);
         }
         if (empty($_POST['confirm-password'])) {
             $confirm_password_error = 'Confirm Password is required';
@@ -49,6 +49,7 @@ if (isset($_POST['submit'])) {
             try {
                 $stmt->execute();
                 if ($conn->lastInsertId())
+                    $_SESSION['loggedin'] = true;
                     header("Location: ../profile.php");
                     exit();
             } catch (PDOException $e) {

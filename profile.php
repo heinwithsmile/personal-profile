@@ -50,7 +50,7 @@ if(!$_SESSION['loggedin']){
                     </div>
                     <div class="form-group">
                         <label for="confirm-password">Confirm Password</label>
-                        <input type="confirm-password" name="confirm-password" id="confirm-password" class="form-control">
+                        <input type="password" name="confirm-password" id="confirm-password" class="form-control">
                         <smal class="text-danger">Invalid Confirm Password</small>
                     </div>
                 </div>

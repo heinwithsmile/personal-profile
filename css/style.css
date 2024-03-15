@@ -64,9 +64,13 @@ h5 {
   gap: 15px;
 }
 
+.flex-column {
+  flex-direction: column;
+}
+
 .card {
   width: 388px;
-  /* height: 450px; */
+  /* height: 425px; */
   background-color: var(--primary-color);
   color: var(--white);
   border-radius: 0px;
@@ -167,6 +171,7 @@ h5 {
 
 .btn-lg {
   width: 100%;
+  /* align-self: flex-end; */
 }
 
 .text-danger {
