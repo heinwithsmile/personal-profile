@@ -24,9 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $stmt->execute(['email' => $email, 'password' => $password]);
         $user = $stmt->fetch();
-        // echo "<pre>";
-        // var_dump($user);
-        // exit;
         if (!empty($user)) {
             $_SESSION['loggedin'] = true;
             header("Location: ../profile.php");
